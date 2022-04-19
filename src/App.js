@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 // importing pages
+import Category from './pages/Category';
 import Explore from './pages/Explore';
 import Offers from './pages/Offers';
 import Profile from './pages/Profile';
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Explore />} />
           <Route path='/offers' element={<Offers />} />
+          <Route path='/category/:categoryName' element={<Category />} />
           <Route path='/profile' element={<PrivateRoute />}>
             <Route path='/profile' element={<Profile />} />
           </Route>
