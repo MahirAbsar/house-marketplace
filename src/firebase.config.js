@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: 'AIzaSyAepk01aZneKRbPm7vlgy39XsJLkiDVmsM',
   authDomain: 'house-market-ab494.firebaseapp.com',
@@ -11,3 +12,4 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 export const db = getFirestore();
+export const auth = getAuth();

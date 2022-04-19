@@ -1,7 +1,48 @@
 import React from 'react';
-
-const Explore = () => {
-  return <div>Forgot Password</div>;
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
+const ForgotPassword = () => {
+  const [email, setEmail] = useState('');
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success('Email Was Sent');
+    } catch (err) {
+      toast.error('Could Not Send Reset Email');
+    }
+  };
+  return (
+    <div className='pageContainer'>
+      <header>
+        <p className='pageHeader'>Forgot Password</p>
+      </header>
+      <main>
+        <form onSubmit={onSubmit}>
+          <input
+            type='email'
+            className='emailInput'
+            placeholder='email'
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+          <Link className='forgotPasswordLink' to='/sign-in'>
+            Sign In
+          </Link>
+          <div className='signInBar'>
+            <div className='signInText'>Send Reset Link</div>
+            <button className='signInButton'>
+              <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  );
 };
 
-export default Explore;
+export default ForgotPassword;
