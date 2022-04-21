@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
-import { getAuth, updateProfile } from 'firebase/auth';
-import { updateDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase.config';
-import { useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react'
+import { getAuth, updateProfile } from 'firebase/auth'
+import { updateDoc, doc } from 'firebase/firestore'
+import { db } from '../firebase.config'
+import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg'
+import homeIcon from '../assets/svg/homeIcon.svg'
 
 const Explore = () => {
-  const auth = getAuth();
-  const [changeDetails, setChangeDetails] = useState(false);
+  const auth = getAuth()
+  const [changeDetails, setChangeDetails] = useState(false)
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
-  });
-  const { name, email } = formData;
-  const navigate = useNavigate();
+  })
+  const { name, email } = formData
+  const navigate = useNavigate()
   const onLogOut = () => {
-    auth.signOut();
-    navigate('/');
-  };
+    auth.signOut()
+    navigate('/')
+  }
   const onSubmit = async () => {
     try {
       if (auth.currentUser.displayName !== name) {
         await updateProfile(auth.currentUser, {
           displayName: name,
-        });
-        const userRef = doc(db, 'users', auth.currentUser.uid);
+        })
+        const userRef = doc(db, 'users', auth.currentUser.uid)
         await updateDoc(userRef, {
           name,
-        });
+        })
       }
     } catch (err) {
-      console.log(err);
-      toast.error('Could Not Update Profile Details');
+      console.log(err)
+      toast.error('Could Not Update Profile Details')
     }
-  };
+  }
   const onChange = (e) => {
-    console.log(formData);
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+    console.log(formData)
+    setFormData({ ...formData, [e.target.id]: e.target.value })
+  }
   return (
     <div className='profile'>
       <header className='profileHeader'>
@@ -52,8 +54,8 @@ const Explore = () => {
           <p
             className='changePersonalDetails'
             onClick={() => {
-              changeDetails && onSubmit();
-              setChangeDetails((prevState) => !prevState);
+              changeDetails && onSubmit()
+              setChangeDetails((prevState) => !prevState)
             }}
           >
             {changeDetails ? 'done' : 'change'}
@@ -79,9 +81,14 @@ const Explore = () => {
             />
           </form>
         </div>
+        <Link to='/create-listing' className='createListing'>
+          <img src={homeIcon} alt='home' />
+          <p>Sell or Rent your home</p>
+          <img src={arrowRight} alt='right arrow' />
+        </Link>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Explore;
+export default Explore
