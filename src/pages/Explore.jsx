@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import rentCategoryImage from '../assets/jpg/rentCategoryImage.jpg';
-import sellCategoryImage from '../assets/jpg/sellCategoryImage.jpg';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import Slider from '../components/Slider'
+import rentCategoryImage from '../assets/jpg/rentCategoryImage.jpg'
+import sellCategoryImage from '../assets/jpg/sellCategoryImage.jpg'
 
 const Explore = () => {
   return (
@@ -10,7 +11,7 @@ const Explore = () => {
         <p className='pageHeader'>Explore</p>
       </header>
       <main>
-        {/* {Slider} */}
+        <Slider />
         <p className='exploreCatergoryHeading'>Categories</p>
         <div className='exploreCategories'>
           <Link to='/category/rent'>
@@ -33,7 +34,7 @@ const Explore = () => {
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Explore;
+export default Explore
