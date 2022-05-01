@@ -56,6 +56,8 @@ const Explore = () => {
       toast.success('Succesfully deletd listing')
     }
   }
+
+  const onEdit = (listingId) => navigate(`/edit-listing/${listingId}`)
   const onLogOut = () => {
     auth.signOut()
     navigate('/')
@@ -137,6 +139,7 @@ const Explore = () => {
                     listing={listing.data}
                     id={listing.id}
                     onDelete={() => onDelete(listing.id)}
+                    onEdit={() => onEdit(listing.id)}
                   />
                 )
               })}

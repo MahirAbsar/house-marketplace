@@ -14,12 +14,12 @@ function Slider() {
   const [loading, setLoading] = useState(true)
   const [listing, setListings] = useState(null)
   const navigate = useNavigate()
+  let listings = []
   useEffect(() => {
     const fetchListings = async () => {
       const listingsRef = collection(db, 'listings')
       const q = query(listingsRef, orderBy('timestamp', 'desc'), limit(5))
       const querySnap = await getDocs(q)
-      let listings = []
       querySnap.forEach((doc) => {
         return listings.push({ id: doc.id, data: doc.data() })
       })
@@ -30,6 +30,9 @@ function Slider() {
   }, [])
   if (loading) {
     return <Spinner />
+  }
+  if (listings.length == 0) {
+    return <></>
   }
   return (
     listing && (
