@@ -29,7 +29,6 @@ function Category() {
           listingsRef,
           where('type', '==', params.categoryName),
           orderBy('timestamp', 'desc'),
-          startAfter(lastFetchedListing),
           limit(10)
         )
         // execute the query
@@ -38,7 +37,7 @@ function Category() {
         setLastFetchedListing(lastVisible)
         let listings = []
         querySnap.forEach((doc) => {
-          listings.push({
+          return listings.push({
             id: doc.id,
             data: doc.data(),
           })
@@ -62,7 +61,8 @@ function Category() {
         listingsRef,
         where('type', '==', params.categoryName),
         orderBy('timestamp', 'desc'),
-        limit(1)
+        startAfter(lastFetchedListing),
+        limit(10)
       )
       // execute the query
       const querySnap = await getDocs(q)
@@ -70,7 +70,7 @@ function Category() {
       setLastFetchedListing(lastVisible)
       let listings = []
       querySnap.forEach((doc) => {
-        listings.push({
+        return listings.push({
           id: doc.id,
           data: doc.data(),
         })
